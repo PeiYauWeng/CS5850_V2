@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="zh"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>AWSS3Service.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">fist_maven</a> &gt; <a href="index.source.html" class="el_package">CS5850_DropBox</a> &gt; <span class="el_source">AWSS3Service.java</span></div><h1>AWSS3Service.java</h1><pre class="source lang-java linenums">package CS5850_DropBox;
+
+import java.io.File;
+import java.util.Iterator;
+import java.util.List;
+
+import com.amazonaws.AmazonServiceException;
+import com.amazonaws.services.s3.AmazonS3;
+//import com.amazonaws.services.s3.AmazonS3Client;
+import com.amazonaws.services.s3.model.Bucket;
+//import com.amazonaws.services.s3.model.CopyObjectResult;
+//import com.amazonaws.services.s3.model.DeleteObjectsRequest;
+//import com.amazonaws.services.s3.model.DeleteObjectsResult;
+import com.amazonaws.services.s3.model.ObjectListing;
+import com.amazonaws.services.s3.model.PutObjectResult;
+import com.amazonaws.services.s3.model.S3Object;
+import com.amazonaws.services.s3.model.S3ObjectSummary;
+
+public class AWSS3Service {
+    private final AmazonS3 s3client;
+    
+<span class="fc" id="L22">    public AWSS3Service(AmazonS3 s3client) {</span>
+<span class="fc" id="L23">        this.s3client = s3client;</span>
+<span class="fc" id="L24">    }</span>
+    
+    //is bucket exist?
+    public boolean doesBucketExist(String bucketName) { 
+<span class="fc" id="L28">        return s3client.doesBucketExist(bucketName); </span>
+    } 
+    
+    //create a bucket
+    public Bucket createBucket(String bucketName) { 
+<span class="fc" id="L33">        return s3client.createBucket(bucketName); </span>
+    } 
+
+    //list all buckets
+    public List&lt;Bucket&gt; listBuckets() { 
+<span class="nc" id="L38">        return s3client.listBuckets(); </span>
+    }
+
+    //delete a bucket
+    public void deleteBucket(String bucketName , AmazonS3 s3) { 
+    	try {
+<span class="fc" id="L44">    		System.out.println(&quot; - removing all objects from bucket&quot;);</span>
+<span class="fc" id="L45">            ObjectListing objectlisting = s3.listObjects(bucketName);</span>
+<span class="pc bpc" id="L46" title="1 of 2 branches missed.">            while(objectlisting != null) {</span>
+<span class="nc" id="L47">            	for (Iterator&lt;?&gt; iterator = objectlisting.getObjectSummaries().iterator();</span>
+<span class="nc bnc" id="L48" title="All 2 branches missed.">            			iterator.hasNext();) {</span>
+<span class="nc" id="L49">            		S3ObjectSummary summary = (S3ObjectSummary)iterator.next();</span>
+<span class="nc" id="L50">                    s3.deleteObject(bucketName, summary.getKey());</span>
+<span class="nc" id="L51">            	}</span>
+<span class="nc bnc" id="L52" title="All 2 branches missed.">            	if (objectlisting.isTruncated()) {</span>
+<span class="nc" id="L53">                    objectlisting = s3.listNextBatchOfObjects(objectlisting);</span>
+                } else {
+                    break;
+                }
+            }
+<span class="fc" id="L58">            System.out.println(&quot; OK, bucket ready to delete!&quot;);</span>
+<span class="fc" id="L59">        	s3.deleteBucket(bucketName);</span>
+<span class="nc" id="L60">    	} catch(AmazonServiceException e) {</span>
+<span class="nc" id="L61">            System.err.println(e.getErrorMessage());</span>
+<span class="fc" id="L62">        }</span>
+<span class="fc" id="L63">    	System.out.println(&quot;Done!&quot;);</span>
+        //s3client.deleteBucket(bucketName); 
+<span class="fc" id="L65">    }  </span>
+    
+    //uploading object
+    public PutObjectResult putObject(String bucketName, String key, File file) {
+<span class="fc" id="L69">        return s3client.putObject(bucketName, key, file);</span>
+    }
+    
+    
+    //listing objects
+    public ObjectListing listObjects(String bucketName) {
+<span class="fc" id="L75">        return s3client.listObjects(bucketName);</span>
+    }
+    
+    //get an object
+    public S3Object getObject(String bucketName, String objectKey) {
+<span class="nc" id="L80">        return s3client.getObject(bucketName, objectKey);</span>
+    } 
+    
+    //copying an object
+    /*public CopyObjectResult copyObject(
+      String sourceBucketName,
+      String sourceKey,
+      String destinationBucketName,
+      String destinationKey
+    ) {
+        return s3client.copyObject(
+          sourceBucketName, 
+          sourceKey, 
+          destinationBucketName, 
+          destinationKey
+        );
+    }*/
+    
+    //deleting an object
+    public void deleteObject(String bucketName, String objectKey) {
+<span class="fc" id="L100">        s3client.deleteObject(bucketName, objectKey);</span>
+<span class="fc" id="L101">    }</span>
+    
+    //deleting multiple Objects
+    /*public DeleteObjectsResult deleteObjects(DeleteObjectsRequest delObjReq) {
+    	return s3client.deleteObjects(delObjReq);
+    }*/
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span></div></body></html>

@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="zh"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>S3Application.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">fist_maven</a> &gt; <a href="index.source.html" class="el_package">CS5850_DropBox</a> &gt; <span class="el_source">S3Application.java</span></div><h1>S3Application.java</h1><pre class="source lang-java linenums">package CS5850_DropBox;
+
+import java.io.File;
+import java.io.IOException;
+//import java.nio.file.WatchKey;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Scanner;
+
+//import org.apache.commons.io.FileUtils;
+
+import com.amazonaws.auth.AWSCredentials;
+import com.amazonaws.auth.AWSStaticCredentialsProvider;
+import com.amazonaws.auth.BasicAWSCredentials;
+import com.amazonaws.regions.Regions;
+import com.amazonaws.services.s3.AmazonS3;
+import com.amazonaws.services.s3.AmazonS3ClientBuilder;
+import com.amazonaws.services.s3.model.AmazonS3Exception;
+import com.amazonaws.services.s3.model.Bucket;
+//import com.amazonaws.services.s3.model.DeleteObjectsRequest;
+//import com.amazonaws.services.s3.model.ObjectListing;
+//import com.amazonaws.services.s3.model.S3Object;
+//import com.amazonaws.services.s3.model.S3ObjectInputStream;
+import com.amazonaws.services.s3.model.S3ObjectSummary;
+
+<span class="nc" id="L27">public class S3Application {</span>
+	/////////////// start initialize////////////////
+    private final static AWSCredentials credentials; 
+
+    static {
+        //put your access key and secret key here
+<span class="fc" id="L33">        credentials = new BasicAWSCredentials(</span>
+          &quot;AKIAJWJMSPWMX7ZDW27A&quot;, 
+          &quot;C8wPGk6aZAwBH4RDt7XNhmwSOGsj3k5wrb3iSfbn&quot;
+        );
+    }
+    
+    //set up the client
+    final static AmazonS3 s3client = AmazonS3ClientBuilder
+<span class="fc" id="L41">    		.standard()</span>
+<span class="fc" id="L42">            .withCredentials(new AWSStaticCredentialsProvider(credentials))</span>
+<span class="fc" id="L43">            .withRegion(Regions.US_EAST_1)</span>
+<span class="fc" id="L44">            .build();</span>
+    
+<span class="fc" id="L46">    static AWSS3Service awsService = new AWSS3Service(s3client);</span>
+    
+    //static FolderWatch watcher = new FolderWatch();
+    
+    final static String folderPath = &quot;/Users/wunggary/dir&quot;;
+    ///////////// end initialize////////////
+    
+    //get a boolean
+    public static boolean istrue(String answer) {
+<span class="nc bnc" id="L55" title="All 2 branches missed.">    	if (answer.equals(&quot;y&quot;))</span>
+<span class="nc" id="L56">    		return true;</span>
+    	else
+<span class="nc" id="L58">    		return false;</span>
+    }
+    
+    //USER INTERFACE
+    public static String SimpleUI() {
+    	//list all the buckets
+<span class="nc" id="L64">    	System.out.println(&quot;Bucket List:&quot;);</span>
+<span class="nc" id="L65">    	List&lt;Bucket&gt; buckets = awsService.listBuckets();</span>
+<span class="nc bnc" id="L66" title="All 2 branches missed.">     	for(Bucket b: buckets) {</span>
+<span class="nc" id="L67">     		System.out.println(b.getName());</span>
+<span class="nc" id="L68">     	}</span>
+    	//check if want to create new bucket
+<span class="nc" id="L70">    	String bucket_name = null;</span>
+    	
+<span class="nc" id="L72">     	System.out.println(&quot;Do you wan to create new bucket?(y/n)&quot;);</span>
+<span class="nc" id="L73">     	Scanner scannerA = new Scanner(System.in);</span>
+<span class="nc" id="L74">     	boolean answer = istrue(scannerA.nextLine());</span>
+     	
+     	//scan bucket name users input
+<span class="nc" id="L77">     	Scanner scanner = new Scanner(System.in);</span>
+<span class="nc bnc" id="L78" title="All 2 branches missed.">     	if(answer) {</span>
+<span class="nc" id="L79">	     	System.out.println(&quot;Creating a bucket:&quot;);</span>
+<span class="nc" id="L80">			bucket_name = scanner.nextLine();</span>
+<span class="nc bnc" id="L81" title="All 2 branches missed.">	     	while(awsService.doesBucketExist(bucket_name)) {</span>
+<span class="nc" id="L82">	     		System.out.println(&quot;This bucket has existed&quot;);</span>
+	     		try {
+<span class="nc" id="L84">	    			System.out.println(&quot;Creating a bucket:&quot;);</span>
+<span class="nc" id="L85">	    			bucket_name = scanner.nextLine();</span>
+<span class="nc" id="L86">	    		}catch (Exception e){</span>
+<span class="nc" id="L87">	    			scanner.next();</span>
+<span class="nc" id="L88">	    		}</span>
+	     	}
+	     	//creating a bucket
+	    	try {
+<span class="nc" id="L92">	    		awsService.createBucket(bucket_name);</span>
+<span class="nc" id="L93">	    	} catch (AmazonS3Exception e) {</span>
+<span class="nc" id="L94">	    		System.err.println(e.getErrorMessage());</span>
+<span class="nc" id="L95">	    	}</span>
+     	}
+     	else {
+<span class="nc" id="L98">     		System.out.println(&quot;Assign a bucket:&quot;);</span>
+<span class="nc" id="L99">     		bucket_name = scanner.nextLine();</span>
+<span class="nc bnc" id="L100" title="All 2 branches missed.">	     	while(!awsService.doesBucketExist(bucket_name)) {</span>
+<span class="nc" id="L101">	     		System.out.println(&quot;Input a wrong bucket name&quot;);</span>
+	     		try {
+<span class="nc" id="L103">	    			System.out.println(&quot;Input a correct name again:&quot;);</span>
+<span class="nc" id="L104">	    			bucket_name = scanner.nextLine();</span>
+<span class="nc" id="L105">	    		}catch (Exception e){</span>
+<span class="nc" id="L106">	    			scanner.next();</span>
+<span class="nc" id="L107">	    		}</span>
+	     	}
+     	}
+<span class="nc" id="L110">     	scannerA.close();</span>
+<span class="nc" id="L111">     	scanner.close();</span>
+<span class="nc" id="L112">     	return bucket_name;</span>
+    }
+    
+    // first sync
+    public static void firstSync(String bucket_name, FolderWatch folderwatch, File folderInSync, AWSS3Service awsservice) {
+<span class="fc" id="L117">    	HashMap&lt;String, Date&gt; hashmap = new HashMap&lt;String, Date&gt;();</span>
+<span class="fc" id="L118">        File[] listfile = folderwatch.listFiles(folderInSync);</span>
+        
+<span class="pc bpc" id="L120" title="1 of 2 branches missed.">        if(awsservice.listObjects(bucket_name).getObjectSummaries()==null)</span>
+<span class="nc" id="L121">        	System.out.println(&quot;you have problem&quot;);</span>
+<span class="pc bpc" id="L122" title="1 of 2 branches missed.">	        for(S3ObjectSummary os : awsservice.listObjects(bucket_name).getObjectSummaries()) {</span>
+<span class="nc" id="L123">	        	String[] temp = os.getKey().split(&quot;/&quot;);</span>
+<span class="nc" id="L124">	        	String filenameInCloud = temp[temp.length-1];</span>
+<span class="nc" id="L125">	            hashmap.put(filenameInCloud, os.getLastModified());</span>
+<span class="nc" id="L126">	        }</span>
+        
+      //compare local and cloud file
+<span class="fc bfc" id="L129" title="All 2 branches covered.">        for (File file : listfile) {</span>
+<span class="fc" id="L130">        	Date filetime = new Date(file.lastModified());</span>
+<span class="fc" id="L131">            System.out.println(file.getName() + filetime);</span>
+<span class="pc bpc" id="L132" title="1 of 2 branches missed.">            if(hashmap.containsKey(file.getName())) {</span>
+<span class="nc bnc" id="L133" title="All 2 branches missed.">            	if(hashmap.get(file.getName()).equals(filetime))</span>
+<span class="nc" id="L134">        			System.out.println(file.getName()+&quot; no change&quot;);</span>
+        		else {
+<span class="nc" id="L136">        			awsservice.putObject(bucket_name, &quot;Document/&quot;+file.getName(), new File(file.getPath()));</span>
+<span class="nc" id="L137">        			System.out.println(file.getPath());</span>
+<span class="nc" id="L138">        			System.out.println(&quot;change&quot;);</span>
+        		}
+            }
+            else {
+<span class="fc" id="L142">            	awsservice.putObject(bucket_name, &quot;Document/&quot;+file.getName(), new File(file.getPath()));</span>
+<span class="fc" id="L143">            	System.out.println(file.getPath());</span>
+<span class="fc" id="L144">            	System.out.println(&quot;upload &quot; + file.getName());</span>
+            }
+        }
+<span class="fc" id="L147">    }</span>
+    
+    public void run(String bucketName, String folderPath ) throws IOException{
+    	
+<span class="nc" id="L151">    	File folder = new File(folderPath);</span>
+<span class="nc" id="L152">    	FolderWatch watcher = new FolderWatch();</span>
+    	
+<span class="nc" id="L154">    	awsService.createBucket(bucketName);</span>
+     	// Sync all files in local first
+<span class="nc" id="L156">     	firstSync(bucketName, watcher , folder, awsService);</span>
+        
+        //watch folder and detect the change
+		try {
+<span class="nc" id="L160">			watcher.watchEvent(folderPath, s3client, bucketName);</span>
+<span class="nc" id="L161">		} catch (InterruptedException e) {</span>
+			// TODO Auto-generated catch block
+<span class="nc" id="L163">			e.printStackTrace();</span>
+<span class="nc" id="L164">		}</span>
+        
+        //deleting bucket
+<span class="nc" id="L167">     	awsService.deleteBucket(bucketName, s3client);</span>
+<span class="nc" id="L168">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span></div></body></html>
