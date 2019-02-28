@@ -59,6 +59,12 @@ public class AWSS3ServiceTest {
         verify(s3).listObjects(BUCKET_1); 
     }
 	
+	@Test
+	public void whenListBucket_thenCorrect() {
+		service.listBuckets(); 
+        verify(s3).listBuckets(); 
+	}
+	
 	@Test 
     public void whenVerifyingPutObject_thenCorrect() { 
         File file = mock(File.class); 
@@ -79,6 +85,12 @@ public class AWSS3ServiceTest {
 	public void whenVerifyingDeleteObjects_thenCorrect() {
 		service.deleteObject(BUCKET_1, KEY_1);
 		verify(s3).deleteObject(BUCKET_1, KEY_1);
+	}
+	
+	@Test
+	public void whenVerifyingGetOject_thenCorrect() {
+		service.getObject(BUCKET_1, KEY_1);
+		verify(s3).getObject(BUCKET_1, KEY_1);
 	}
 
 }

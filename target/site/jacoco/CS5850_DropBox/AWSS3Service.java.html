@@ -35,7 +35,7 @@ public class AWSS3Service {
 
     //list all buckets
     public List&lt;Bucket&gt; listBuckets() { 
-<span class="nc" id="L38">        return s3client.listBuckets(); </span>
+<span class="fc" id="L38">        return s3client.listBuckets(); </span>
     }
 
     //delete a bucket
@@ -43,13 +43,13 @@ public class AWSS3Service {
     	try {
 <span class="fc" id="L44">    		System.out.println(&quot; - removing all objects from bucket&quot;);</span>
 <span class="fc" id="L45">            ObjectListing objectlisting = s3.listObjects(bucketName);</span>
-<span class="pc bpc" id="L46" title="1 of 2 branches missed.">            while(objectlisting != null) {</span>
-<span class="nc" id="L47">            	for (Iterator&lt;?&gt; iterator = objectlisting.getObjectSummaries().iterator();</span>
-<span class="nc bnc" id="L48" title="All 2 branches missed.">            			iterator.hasNext();) {</span>
-<span class="nc" id="L49">            		S3ObjectSummary summary = (S3ObjectSummary)iterator.next();</span>
-<span class="nc" id="L50">                    s3.deleteObject(bucketName, summary.getKey());</span>
-<span class="nc" id="L51">            	}</span>
-<span class="nc bnc" id="L52" title="All 2 branches missed.">            	if (objectlisting.isTruncated()) {</span>
+<span class="fc bfc" id="L46" title="All 2 branches covered.">            while(objectlisting != null) {</span>
+<span class="fc" id="L47">            	for (Iterator&lt;?&gt; iterator = objectlisting.getObjectSummaries().iterator();</span>
+<span class="fc bfc" id="L48" title="All 2 branches covered.">            			iterator.hasNext();) {</span>
+<span class="fc" id="L49">            		S3ObjectSummary summary = (S3ObjectSummary)iterator.next();</span>
+<span class="fc" id="L50">                    s3.deleteObject(bucketName, summary.getKey());</span>
+<span class="fc" id="L51">            	}</span>
+<span class="pc bpc" id="L52" title="1 of 2 branches missed.">            	if (objectlisting.isTruncated()) {</span>
 <span class="nc" id="L53">                    objectlisting = s3.listNextBatchOfObjects(objectlisting);</span>
                 } else {
                     break;
@@ -77,7 +77,7 @@ public class AWSS3Service {
     
     //get an object
     public S3Object getObject(String bucketName, String objectKey) {
-<span class="nc" id="L80">        return s3client.getObject(bucketName, objectKey);</span>
+<span class="fc" id="L80">        return s3client.getObject(bucketName, objectKey);</span>
     } 
     
     //copying an object
