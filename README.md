@@ -52,10 +52,9 @@ public void run(String bucketName, String folderPath ) throws IOException{
 ```
 and than run S3Application 
 
-Do created deleted or updated files in folder demoDrive
+Do created deleted or updated files in folder dir
 
-It will sync up all the changes from demoDrive folder to Amazon S3 bucket: ibox-bucket
-
+It will sync up all the changes from demoDrive folder to Amazon S3 bucket
 
 End with an example of getting some data out of the system or using it for a little demo
 
@@ -66,7 +65,7 @@ mvn clean verify
 ```
 
 ## Code coverage
-![image]
+![image](https://raw.githubusercontent.com/PeiYauWeng/CS5850_V2/master/pic/螢幕快照%202019-03-01%20上午12.22.11.png)
 
 ## All Testing
 #### The result of Integration Test
