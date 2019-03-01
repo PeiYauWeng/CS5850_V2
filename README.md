@@ -32,7 +32,7 @@ It will sync up all the changes from demoDrive folder to Amazon S3 bucket: ibox-
 
 End with an example of getting some data out of the system or using it for a little demo
 
-## Running the tests
+## Running code
 
 
 ```
@@ -43,6 +43,7 @@ mvn clean package
 
 
 ```
+https://raw.githubusercontent.com/PeiYauWeng/CS5850_V2/master/pic/螢幕快照%202019-02-28%20下午11.33.48.png
 click this link
 
 https://circleci.com/gh/PeiYauWeng/CS5850_V2/6
