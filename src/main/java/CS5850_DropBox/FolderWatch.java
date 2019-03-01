@@ -29,11 +29,11 @@ public class FolderWatch {
 		
 		long startTime = System.currentTimeMillis();
 		long endTime;
-		//System.out.println("test");
-		WatchKey watchkey = watchservice.poll(1, TimeUnit.SECONDS);
+		System.out.println("test");
+		WatchKey watchkey = watchservice.poll(10, TimeUnit.SECONDS);
 		
 		while(watchkey != null) {
-			Thread.sleep(100);
+			Thread.sleep(300);
 			//System.out.println("test1");
 			List<WatchEvent<?>> watchEvents = watchkey.pollEvents();
             for (WatchEvent<?> event : watchEvents) {
