@@ -41,7 +41,7 @@ mvn clean package
 
 ### All Testing
 
-!(https://raw.githubusercontent.com/PeiYauWeng/CS5850_V2/master/pic/螢幕快照%202019-02-28%20下午11.33.48.png)
+![image](https://raw.githubusercontent.com/PeiYauWeng/CS5850_V2/master/pic/螢幕快照%202019-02-28%20下午11.33.48.png)
 
 copy this link
 
