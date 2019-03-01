@@ -46,7 +46,7 @@ mvn clean package
 https://raw.githubusercontent.com/PeiYauWeng/CS5850_V2/master/pic/螢幕快照%202019-02-28%20下午11.33.48.png
 click this link
 
-https://circleci.com/gh/PeiYauWeng/CS5850_V2/6
+* [click this link](linkhttps://circleci.com/gh/PeiYauWeng/CS5850_V2/6)
 
 You can see the test result in this website
 ```
