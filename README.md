@@ -45,7 +45,7 @@ mvn clean package
 
 copy this link
 
-* [copy this link](linkhttps://circleci.com/gh/PeiYauWeng/CS5850_V2/6)
+* [CIRCLECI](linkhttps://circleci.com/gh/PeiYauWeng/CS5850_V2/6)
 
 You can see the test result in this website
 
