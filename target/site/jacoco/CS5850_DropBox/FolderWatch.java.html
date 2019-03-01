@@ -22,51 +22,52 @@ import com.amazonaws.services.s3.AmazonS3;
 <span class="fc" id="L22">		AWSS3Service awsService = new AWSS3Service(s3);</span>
 <span class="fc" id="L23">		Path folderPath = Paths.get(folder);</span>
 <span class="fc" id="L24">		folderPath.register(</span>
-				watchservice, 
-				StandardWatchEventKinds.ENTRY_CREATE,
-				StandardWatchEventKinds.ENTRY_DELETE,
-				StandardWatchEventKinds.ENTRY_MODIFY);
+<span class="fc" id="L25">				watchservice, </span>
+<span class="fc" id="L26">				StandardWatchEventKinds.ENTRY_CREATE,</span>
+<span class="fc" id="L27">				StandardWatchEventKinds.ENTRY_DELETE,</span>
+<span class="fc" id="L28">				StandardWatchEventKinds.ENTRY_MODIFY);</span>
 		
 <span class="fc" id="L30">		long startTime = System.currentTimeMillis();</span>
 		long endTime;
-		//System.out.println(&quot;test&quot;);
-<span class="fc" id="L33">		WatchKey watchkey = watchservice.poll(1, TimeUnit.SECONDS);</span>
+<span class="fc" id="L32">		System.out.println(&quot;test&quot;);</span>
+<span class="fc" id="L33">		WatchKey watchkey = watchservice.poll(10, TimeUnit.SECONDS);</span>
+<span class="fc" id="L34">		System.out.println(&quot;test&quot;);</span>
 		
-<span class="pc bpc" id="L35" title="1 of 2 branches missed.">		while(watchkey != null) {</span>
-<span class="nc" id="L36">			Thread.sleep(100);</span>
+<span class="pc bpc" id="L36" title="1 of 2 branches missed.">		while(watchkey != null) {</span>
+<span class="nc" id="L37">			Thread.sleep(300);</span>
 			//System.out.println(&quot;test1&quot;);
-<span class="nc" id="L38">			List&lt;WatchEvent&lt;?&gt;&gt; watchEvents = watchkey.pollEvents();</span>
-<span class="nc bnc" id="L39" title="All 2 branches missed.">            for (WatchEvent&lt;?&gt; event : watchEvents) {</span>
-<span class="nc bnc" id="L40" title="All 2 branches missed.">                if(StandardWatchEventKinds.ENTRY_CREATE == event.kind()){</span>
-<span class="nc" id="L41">                    System.out.println(&quot;CREATE:[&quot; + folderPath + &quot;/&quot; + event.context() + &quot;]&quot;);</span>
-<span class="nc" id="L42">                    awsService.putObject(bucket_name,&quot;Document/&quot;+event.context().toString(), </span>
-<span class="nc" id="L43">                    		new File(folderPath + &quot;/&quot; +event.context().toString()));</span>
+<span class="nc" id="L39">			List&lt;WatchEvent&lt;?&gt;&gt; watchEvents = watchkey.pollEvents();</span>
+<span class="nc bnc" id="L40" title="All 2 branches missed.">            for (WatchEvent&lt;?&gt; event : watchEvents) {</span>
+<span class="nc bnc" id="L41" title="All 2 branches missed.">                if(StandardWatchEventKinds.ENTRY_CREATE == event.kind()){</span>
+<span class="nc" id="L42">                    System.out.println(&quot;CREATE:[&quot; + folderPath + &quot;/&quot; + event.context() + &quot;]&quot;);</span>
+<span class="nc" id="L43">                    awsService.putObject(bucket_name,&quot;Document/&quot;+event.context().toString(), </span>
+<span class="nc" id="L44">                    		new File(folderPath + &quot;/&quot; +event.context().toString()));</span>
                 }
-<span class="nc bnc" id="L45" title="All 2 branches missed.">                if(StandardWatchEventKinds.ENTRY_DELETE == event.kind()){</span>
-<span class="nc" id="L46">                    System.out.println(&quot;DELETE:[&quot; + folderPath + &quot;/&quot; + event.context() + &quot;]&quot;);</span>
-<span class="nc" id="L47">                    awsService.deleteObject(bucket_name,&quot;Document/&quot;+event.context().toString());</span>
+<span class="nc bnc" id="L46" title="All 2 branches missed.">                if(StandardWatchEventKinds.ENTRY_DELETE == event.kind()){</span>
+<span class="nc" id="L47">                    System.out.println(&quot;DELETE:[&quot; + folderPath + &quot;/&quot; + event.context() + &quot;]&quot;);</span>
+<span class="nc" id="L48">                    awsService.deleteObject(bucket_name,&quot;Document/&quot;+event.context().toString());</span>
                 }
-<span class="nc bnc" id="L49" title="All 2 branches missed.">                if(StandardWatchEventKinds.ENTRY_MODIFY == event.kind()){</span>
-<span class="nc" id="L50">                    System.out.println(&quot;MODIFY:[&quot; + folderPath + &quot;/&quot; + event.context() + &quot;]&quot;);</span>
-<span class="nc" id="L51">                    awsService.putObject(bucket_name,&quot;Document/&quot;+event.context().toString(), </span>
-<span class="nc" id="L52">                    		new File(folderPath + &quot;/&quot; +event.context().toString()));</span>
+<span class="nc bnc" id="L50" title="All 2 branches missed.">                if(StandardWatchEventKinds.ENTRY_MODIFY == event.kind()){</span>
+<span class="nc" id="L51">                    System.out.println(&quot;MODIFY:[&quot; + folderPath + &quot;/&quot; + event.context() + &quot;]&quot;);</span>
+<span class="nc" id="L52">                    awsService.putObject(bucket_name,&quot;Document/&quot;+event.context().toString(), </span>
+<span class="nc" id="L53">                    		new File(folderPath + &quot;/&quot; +event.context().toString()));</span>
                 }
                 
-<span class="nc" id="L55">            }</span>
-<span class="nc" id="L56">            endTime = System.currentTimeMillis();</span>
-<span class="nc" id="L57">            watchkey.reset();</span>
-<span class="nc bnc" id="L58" title="All 2 branches missed.">            if((endTime-startTime) &gt; 100000 )</span>
-<span class="nc" id="L59">            	break;</span>
-<span class="nc" id="L60">		}</span>
+            }
+<span class="nc" id="L57">            endTime = System.currentTimeMillis();</span>
+<span class="nc" id="L58">            watchkey.reset();</span>
+<span class="nc bnc" id="L59" title="All 2 branches missed.">            if((endTime-startTime) &gt; 100000 )</span>
+<span class="nc" id="L60">            	break;</span>
+		}
 		//watchservice.close();
 	
-<span class="fc" id="L63">	}</span>
+<span class="fc" id="L64">	}</span>
 
 	public File[] listFiles(File folder) {
-<span class="pc bpc" id="L66" title="1 of 2 branches missed.">		if (folder.isDirectory())</span>
-<span class="fc" id="L67">			return folder.listFiles();</span>
+<span class="pc bpc" id="L67" title="1 of 2 branches missed.">		if (folder.isDirectory())</span>
+<span class="fc" id="L68">			return folder.listFiles();</span>
 		else
-<span class="nc" id="L69">			return null;</span>
+<span class="nc" id="L70">			return null;</span>
 	}
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span></div></body></html>

@@ -3,6 +3,7 @@ package CS5850_DropBox;
 import static org.junit.Assert.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.RETURNS_DEEP_STUBS;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -26,7 +27,7 @@ public class AWSS3ServiceTest {
     
 	@Before
 	public void setUp() throws Exception {
-		s3 = mock(AmazonS3.class); 
+		s3 = mock(AmazonS3.class, RETURNS_DEEP_STUBS); 
         service = new AWSS3Service(s3);
 	}
 

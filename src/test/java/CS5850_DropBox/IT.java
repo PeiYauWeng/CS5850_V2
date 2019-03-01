@@ -51,7 +51,7 @@ public class IT {
 	final static String folderPath = "/Users/wunggary/dir";
     final static File folder = new File(folderPath);
     
-    static String bucketname = "user-no2";
+    static String bucketname = "user-no1";
     
 	@Before
 	public void setUp() throws Exception {
@@ -72,7 +72,24 @@ public class IT {
 	@Test
 	public void test() throws IOException {
 		System.out.println("Start Integration Test");
-		s3app.run(bucketname, folderPath );
+		File folder = new File(folderPath);
+    	FolderWatch watcher = new FolderWatch();
+    	
+    	awsService.createBucket(bucketname);
+     	// Sync all files in local first
+    	System.out.println("complete create Bucket");
+    	s3app.firstSync(bucketname, watcher , folder, awsService);
+        
+        //watch folder and detect the change
+		try {
+			watcher.watchEvent(folderPath, s3client, bucketname);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        
+        //deleting bucket
+     	awsService.deleteBucket(bucketname, s3client);
 		System.out.println("Start Integration Test");
 	}
 

@@ -80,21 +80,6 @@ public class AWSS3Service {
         return s3client.getObject(bucketName, objectKey);
     } 
     
-    //copying an object
-    /*public CopyObjectResult copyObject(
-      String sourceBucketName,
-      String sourceKey,
-      String destinationBucketName,
-      String destinationKey
-    ) {
-        return s3client.copyObject(
-          sourceBucketName, 
-          sourceKey, 
-          destinationBucketName, 
-          destinationKey
-        );
-    }*/
-    
     //deleting an object
     public void deleteObject(String bucketName, String objectKey) {
         s3client.deleteObject(bucketName, objectKey);

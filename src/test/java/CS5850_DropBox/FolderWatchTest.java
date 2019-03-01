@@ -20,7 +20,8 @@ import com.amazonaws.services.s3.AmazonS3;
 public class FolderWatchTest {
 	
 	private AWSS3Service awss3service;
-	private static final String BUCKET_1 = "bucket_1"; 
+	private static final String BUCKET_1 = "user-no2"; 
+	private static final String FolderPath = "/Users/wunggary/dir/";
 	
 	private AmazonS3 s3; 
     private FolderWatch folderwatch;
@@ -38,6 +39,7 @@ public class FolderWatchTest {
 		awss3service = mock(AWSS3Service.class, RETURNS_DEEP_STUBS);
 		
 		folderwatch = new FolderWatch();
+		//RunThread t = new RunThread();
 		//System.out.println(etcHost.toString());
 	}
 
@@ -47,22 +49,28 @@ public class FolderWatchTest {
 	}
 
 	@Test
-	public void watchEventTest() throws IOException{
+	public void watchEventTest() throws IOException, InterruptedException{
 		// given
-	    try(BufferedWriter bufferedWriter = Files.newBufferedWriter(etcFile.toPath())) {
-	        bufferedWriter.write("127.0.0.1 xxxxx.local");
-	    }
-
-	    try(BufferedWriter bufferedWriter = Files.newBufferedWriter(etcFile.toPath())) {
-	    	bufferedWriter.write("127.1.1.1 zzzzz.local");
-	        //System.out.println("write");
-	        bufferedWriter.newLine();
-	        bufferedWriter.write("127.0.0.1 xxxxx.local");
-	        folderwatch.watchEvent(etcHost.toString(), s3, BUCKET_1);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+//	    try(BufferedWriter bufferedWriter = Files.newBufferedWriter(etcFile.toPath())) {
+//	        bufferedWriter.write("127.0.0.1 xxxxx.local");
+//	    }
+//
+//	    try(BufferedWriter bufferedWriter = Files.newBufferedWriter(etcFile.toPath())) {
+//	    	bufferedWriter.write("127.1.1.1 zzzzz.local");
+//	        //System.out.println("write");
+//	        bufferedWriter.newLine();
+//	        bufferedWriter.write("127.0.0.1 xxxxx.local");
+//	        folderwatch.watchEvent(etcHost.toString(), s3, BUCKET_1);
+//		} catch (InterruptedException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+		RunThread t = new RunThread();
+		t.start();
+		Thread.sleep(10);
+		folderwatch.watchEvent(FolderPath, s3, BUCKET_1);
+		//t.start();
+		
 	}
 	
 	@Test

@@ -31,6 +31,7 @@ public class FolderWatch {
 		long endTime;
 		System.out.println("test");
 		WatchKey watchkey = watchservice.poll(10, TimeUnit.SECONDS);
+		System.out.println("test");
 		
 		while(watchkey != null) {
 			Thread.sleep(300);

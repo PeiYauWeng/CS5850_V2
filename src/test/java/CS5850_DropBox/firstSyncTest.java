@@ -17,23 +17,23 @@ public class firstSyncTest {
 
 	private AWSS3Service awss3service;
 	private static final String BUCKET_1 = "bucket_1";
+	private static final String KEY_1 = "Document/";
 	private FolderWatch folderwatch;
 	//private File folderInSync;
 	
 	@Rule
 	public TemporaryFolder temporaryfolder = new TemporaryFolder();
 	private File etcHost;
-	private File etcFile;
 	
 	@Before
 	public void setUp() throws Exception {
 		awss3service = mock(AWSS3Service.class, RETURNS_DEEP_STUBS);
 		etcHost = temporaryfolder.newFolder();
-		String filePath = etcHost.toString()+"/temp.txt";
-		etcFile = new File(filePath);
 		folderwatch = mock(FolderWatch.class, RETURNS_DEEP_STUBS);
-		File [] mockedFiles = { new File("f1"), new File("f2"), new File("f3")};
+		File f1 = new File("f1");
+		File [] mockedFiles = { f1, new File("f2"), new File("f3")};
 		when(folderwatch.listFiles(etcHost)).thenReturn(mockedFiles);
+		awss3service.putObject(BUCKET_1, KEY_1, f1);
 	}
 
 	@After
@@ -43,7 +43,9 @@ public class firstSyncTest {
 	@Test
 	public void testfirstSyncIsCorrect() {
 		S3Application mockedApp = mock(S3Application.class, RETURNS_DEEP_STUBS);
-		mockedApp.firstSync(BUCKET_1, folderwatch, etcHost, awss3service);
+		//mockedApp.firstSync(BUCKET_1, folderwatch, etcHost, awss3service);
+		//awss3service.putObject(BUCKET_1, KEY_1, f1);
+		assertEquals(mockedApp.firstSync(BUCKET_1, folderwatch, etcHost, awss3service), true);
 		verify(folderwatch).listFiles(etcHost);
 	}
 	
