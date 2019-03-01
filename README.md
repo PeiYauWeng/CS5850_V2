@@ -59,11 +59,14 @@ It will sync up all the changes from demoDrive folder to Amazon S3 bucket: ibox-
 
 End with an example of getting some data out of the system or using it for a little demo
 
-## Running code
+## Running maven test
 
 ```
 mvn clean verify
 ```
+
+## Code coverage
+![image]
 
 ## All Testing
 #### The result of Integration Test
