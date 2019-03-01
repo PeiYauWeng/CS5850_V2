@@ -83,16 +83,7 @@ You can see the test result in this website
 
 * [Maven](https://maven.apache.org/) - Dependency Management
 
-## Contributing
-
-Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c63ec426) for details on our code of conduct, and the process for submitting pull requests to us.
-
 ## Authors
 
 Pei Yau Weng(pweng.cpp.edu)
 
-## Acknowledgments
-
-* Hat tip to anyone whose code was used
-* Inspiration
-* etc
