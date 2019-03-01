@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="CS5850_DropBox.AWSS3ServiceTest" time="0.427" tests="9" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="CS5850_DropBox.AWSS3ServiceTest" time="0.532" tests="9" errors="0" skipped="0" failures="0">
   <properties>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
     <property name="sun.boot.library.path" value="/Library/Java/JavaVirtualMachines/jdk1.8.0_202.jdk/Contents/Home/jre/lib"/>
@@ -63,13 +63,13 @@
     <property name="ftp.nonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
     <property name="sun.cpu.isalist" value=""/>
   </properties>
-  <testcase name="whenVerifyingGetOject_thenCorrect" classname="CS5850_DropBox.AWSS3ServiceTest" time="0.261"/>
+  <testcase name="whenVerifyingGetOject_thenCorrect" classname="CS5850_DropBox.AWSS3ServiceTest" time="0.33"/>
   <testcase name="whenVerifyingListObjects_thenCorrect" classname="CS5850_DropBox.AWSS3ServiceTest" time="0.001"/>
   <testcase name="whenInitializingAWSS3Service_thenNotNull" classname="CS5850_DropBox.AWSS3ServiceTest" time="0.001"/>
-  <testcase name="whenListBucket_thenCorrect" classname="CS5850_DropBox.AWSS3ServiceTest" time="0.001"/>
-  <testcase name="whenVerifyingCreationOfS3Bucket_thenCorrect" classname="CS5850_DropBox.AWSS3ServiceTest" time="0.022"/>
-  <testcase name="whenDeletingBucket_thenCorrect" classname="CS5850_DropBox.AWSS3ServiceTest" time="0.002"/>
-  <testcase name="whenVerifyingPutObject_thenCorrect" classname="CS5850_DropBox.AWSS3ServiceTest" time="0.135"/>
-  <testcase name="whenVerifyingDeleteObjects_thenCorrect" classname="CS5850_DropBox.AWSS3ServiceTest" time="0"/>
-  <testcase name="whenVerifyingIfS3BucketExist_thenCorrect" classname="CS5850_DropBox.AWSS3ServiceTest" time="0.001"/>
+  <testcase name="whenListBucket_thenCorrect" classname="CS5850_DropBox.AWSS3ServiceTest" time="0.002"/>
+  <testcase name="whenVerifyingCreationOfS3Bucket_thenCorrect" classname="CS5850_DropBox.AWSS3ServiceTest" time="0.029"/>
+  <testcase name="whenDeletingBucket_thenCorrect" classname="CS5850_DropBox.AWSS3ServiceTest" time="0.005"/>
+  <testcase name="whenVerifyingPutObject_thenCorrect" classname="CS5850_DropBox.AWSS3ServiceTest" time="0.155"/>
+  <testcase name="whenVerifyingDeleteObjects_thenCorrect" classname="CS5850_DropBox.AWSS3ServiceTest" time="0.001"/>
+  <testcase name="whenVerifyingIfS3BucketExist_thenCorrect" classname="CS5850_DropBox.AWSS3ServiceTest" time="0.002"/>
 </testsuite>

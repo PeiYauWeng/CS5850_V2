@@ -51,25 +51,21 @@ public class FolderWatchTest {
 	@Test
 	public void watchEventTest() throws IOException, InterruptedException{
 		// given
-//	    try(BufferedWriter bufferedWriter = Files.newBufferedWriter(etcFile.toPath())) {
-//	        bufferedWriter.write("127.0.0.1 xxxxx.local");
-//	    }
-//
-//	    try(BufferedWriter bufferedWriter = Files.newBufferedWriter(etcFile.toPath())) {
-//	    	bufferedWriter.write("127.1.1.1 zzzzz.local");
-//	        //System.out.println("write");
-//	        bufferedWriter.newLine();
-//	        bufferedWriter.write("127.0.0.1 xxxxx.local");
-//	        folderwatch.watchEvent(etcHost.toString(), s3, BUCKET_1);
-//		} catch (InterruptedException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-		RunThread t = new RunThread();
-		t.start();
-		Thread.sleep(10);
+	    try(BufferedWriter bufferedWriter = Files.newBufferedWriter(etcFile.toPath())) {
+	        bufferedWriter.write("127.0.0.1 xxxxx.local");
+	    }
+
+	    try(BufferedWriter bufferedWriter = Files.newBufferedWriter(etcFile.toPath())) {
+	    	bufferedWriter.write("127.1.1.1 zzzzz.local");
+	        //System.out.println("write");
+	        bufferedWriter.newLine();
+	        bufferedWriter.write("127.0.0.1 xxxxx.local");
+	        folderwatch.watchEvent(etcHost.toString(), s3, BUCKET_1);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		folderwatch.watchEvent(FolderPath, s3, BUCKET_1);
-		//t.start();
 		
 	}
 	

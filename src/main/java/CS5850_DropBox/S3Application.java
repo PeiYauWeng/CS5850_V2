@@ -31,8 +31,8 @@ public class S3Application {
     static {
         //put your access key and secret key here
         credentials = new BasicAWSCredentials(
-          "AKIAJWJMSPWMX7ZDW27A", 
-          "C8wPGk6aZAwBH4RDt7XNhmwSOGsj3k5wrb3iSfbn"
+          "access key", 
+          "secret key"
         );
     }
     
