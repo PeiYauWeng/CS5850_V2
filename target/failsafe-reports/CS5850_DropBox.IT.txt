@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: CS5850_DropBox.IT
 -------------------------------------------------------------------------------
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 5.537 s - in CS5850_DropBox.IT
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 99.673 s - in CS5850_DropBox.IT

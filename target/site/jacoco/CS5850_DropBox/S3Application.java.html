@@ -24,7 +24,7 @@ import com.amazonaws.services.s3.model.Bucket;
 //import com.amazonaws.services.s3.model.S3ObjectInputStream;
 import com.amazonaws.services.s3.model.S3ObjectSummary;
 
-<span class="nc" id="L27">public class S3Application {</span>
+<span class="fc" id="L27">public class S3Application {</span>
 	/////////////// start initialize////////////////
     private final static AWSCredentials credentials; 
 
@@ -148,23 +148,23 @@ import com.amazonaws.services.s3.model.S3ObjectSummary;
     
     public void run(String bucketName, String folderPath ) throws IOException{
     	
-<span class="nc" id="L151">    	File folder = new File(folderPath);</span>
-<span class="nc" id="L152">    	FolderWatch watcher = new FolderWatch();</span>
+<span class="fc" id="L151">    	File folder = new File(folderPath);</span>
+<span class="fc" id="L152">    	FolderWatch watcher = new FolderWatch();</span>
     	
-<span class="nc" id="L154">    	awsService.createBucket(bucketName);</span>
+<span class="fc" id="L154">    	awsService.createBucket(bucketName);</span>
      	// Sync all files in local first
-<span class="nc" id="L156">     	firstSync(bucketName, watcher , folder, awsService);</span>
+<span class="fc" id="L156">     	firstSync(bucketName, watcher , folder, awsService);</span>
         
         //watch folder and detect the change
 		try {
-<span class="nc" id="L160">			watcher.watchEvent(folderPath, s3client, bucketName);</span>
+<span class="fc" id="L160">			watcher.watchEvent(folderPath, s3client, bucketName);</span>
 <span class="nc" id="L161">		} catch (InterruptedException e) {</span>
 			// TODO Auto-generated catch block
 <span class="nc" id="L163">			e.printStackTrace();</span>
-<span class="nc" id="L164">		}</span>
+<span class="fc" id="L164">		}</span>
         
         //deleting bucket
-<span class="nc" id="L167">     	awsService.deleteBucket(bucketName, s3client);</span>
-<span class="nc" id="L168">    }</span>
+<span class="fc" id="L167">     	awsService.deleteBucket(bucketName, s3client);</span>
+<span class="fc" id="L168">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span></div></body></html>
